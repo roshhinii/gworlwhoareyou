@@ -1,98 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Deiv : through the lens of roro</title>
-  <style>
-    body, html {
-      margin: 0; padding: 0; height: 100%;
-      font-family: 'Arial', sans-serif;
-      background-color: #f5f0e6; /* Beige background */
-      color: #2b1b0e; /* Dark Brown text */
-      overflow-x: hidden;
-      user-select: none;
-    }
-    h1 {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 3rem;
-      color: #000000; /* Black */
-      text-shadow: 1px 1px 2px #5c3d1e; /* Brown shadow */
-    }
-    .gallery-container {
-      margin-top: 50px;
-      overflow-x: auto;
-      white-space: nowrap;
-      cursor: grab;
-      padding: 20px 0;
-      border-top: 2px solid #5c3d1e;
-      border-bottom: 2px solid #5c3d1e;
-    }
-    .gallery-container:active {
-      cursor: grabbing;
-    }
-    .gallery-container img {
-      height: 150px;
-      margin: 0 10px;
-      border-radius: 10px;
-      border: 3px solid #2b1b0e;
-      object-fit: cover;
-      display: inline-block;
-      user-drag: none;
-      user-select: none;
-    }
-  </style>
-</head>
-<body>
+/* Import Playfair Display font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 
-  <h1>Deiv : through the lens of roro</h1>
+body, html {
+  margin: 0; 
+  padding: 0; 
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f0e6; /* Beige background */
+  color: #2b1b0e; /* Dark brown text */
+  overflow-x: hidden;
+  user-select: none; /* Prevent text selection during drag */
+}
 
-  <div class="gallery-container" id="gallery">
-    <!-- Replace these sample images with your real pictures -->
-    <img src="https://placekitten.com/300/150" alt="Memory 1" />
-    <img src="https://placekitten.com/301/150" alt="Memory 2" />
-    <img src="https://placekitten.com/302/150" alt="Memory 3" />
-    <img src="https://placekitten.com/303/150" alt="Memory 4" />
-    <img src="https://placekitten.com/304/150" alt="Memory 5" />
-    <img src="https://placekitten.com/305/150" alt="Memory 6" />
-    <img src="https://placekitten.com/306/150" alt="Memory 7" />
-    <img src="https://placekitten.com/307/150" alt="Memory 8" />
-    <img src="https://placekitten.com/308/150" alt="Memory 9" />
-    <img src="https://placekitten.com/309/150" alt="Memory 10" />
-  </div>
+h1 {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 3rem;
+  color: #000000; /* Black title */
+  text-shadow: 1px 1px 2px #5c3d1e; /* Subtle brown shadow */
+}
 
-  <script>
-    const gallery = document.getElementById('gallery');
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+.gallery-container {
+  margin-top: 50px;
+  overflow-x: auto;
+  white-space: nowrap;
+  cursor: grab;
+  padding: 20px 0;
+  border-top: 2px solid #5c3d1e; /* Brown border */
+  border-bottom: 2px solid #5c3d1e;
+}
 
-    gallery.addEventListener('mousedown', (e) => {
-      isDown = true;
-      gallery.classList.add('active');
-      startX = e.pageX - gallery.offsetLeft;
-      scrollLeft = gallery.scrollLeft;
-    });
+.gallery-container:active {
+  cursor: grabbing;
+}
 
-    gallery.addEventListener('mouseleave', () => {
-      isDown = false;
-      gallery.classList.remove('active');
-    });
+.gallery-container img {
+  height: 150px;
+  margin: 0 10px;
+  border-radius: 10px;
+  border: 3px solid #2b1b0e; /* Dark brown border */
+  object-fit: cover;
+  display: inline-block;
+  user-drag: none;
+  user-select: none;
+}
 
-    gallery.addEventListener('mouseup', () => {
-      isDown = false;
-      gallery.classList.remove('active');
-    });
+#loveButton {
+  display: block;
+  margin: 40px auto;
+  font-family: 'Playfair Display', serif; /* Elegant font */
+  text-transform: uppercase;
+  background-color: #D2B48C; /* Cookies - tan/beige */
+  color: #6F4E37; /* Caramel - brown */
+  border: 2px solid #6F4E37;
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-    gallery.addEventListener('mousemove', (e) => {
-      if(!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - gallery.offsetLeft;
-      const walk = (x - startX) * 2; // scroll speed
-      gallery.scrollLeft = scrollLeft - walk;
-    });
-  </script>
-
-</body>
-</html>
+#loveButton:hover {
+  background-color: #6F4E37; /* Caramel brown */
+  color: #D2B48C; /* Cookies beige */
+}
