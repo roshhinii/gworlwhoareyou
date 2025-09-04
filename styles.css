@@ -1,87 +1,102 @@
-/* Import Playfair Display font from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
-body, html {
-  margin: 0; 
-  padding: 0; 
-  height: 100%;
-  font-family: 'Arial', sans-serif;
-  background-color: #f5f0e6; /* Beige background */
-  color: #2b1b0e; /* Dark brown text */
-  overflow-x: hidden;
-  user-select: none; /* Prevent text selection during drag */
+/* Root variables for theme colors */
+:root {
+  --color-beige: #f5f1e9; /* soft beige background */
+  --color-caramel-light: #bf9652; /* light caramel for backgrounds */
+  --color-caramel-dark: #7b4e1a; /* rich dark caramel for accents */
+  --color-text-brown: #5d4530;  /* brown text */
 }
 
-h1 {
+/* General body and typography */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-beige);
+  color: var(--color-text-brown);
+}
+
+h1, h2, h3 {
   text-align: center;
-  margin-top: 50px;
-  font-size: 3rem;
-  color: #000000; /* Black title */
-  text-shadow: 1px 1px 2px #5c3d1e; /* Subtle brown shadow */
+  color: var(--color-text-brown);
+  margin-top: 20px;
 }
 
+/* Gallery container for horizontal scroll */
 .gallery-container {
-  margin-top: 50px;
+  display: flex;
   overflow-x: auto;
-  white-space: nowrap;
+  scroll-behavior: smooth;
   cursor: grab;
-  padding: 20px 0;
-  border-top: 2px solid #5c3d1e; /* Brown border */
-  border-bottom: 2px solid #5c3d1e;
+  padding: 20px;
+  -webkit-overflow-scrolling: touch;
+  background-color: var(--color-caramel-light);
+  border-radius: 20px;
+  margin: 40px auto;
+  max-width: 90vw;
+  box-shadow: 0 4px 14px rgba(123, 78, 26, 0.3);
 }
 
 .gallery-container:active {
   cursor: grabbing;
 }
 
-.gallery-container img {
-  height: 150px;
-  margin: 0 10px;
-  border-radius: 10px;
-  border: 3px solid #2b1b0e; /* Dark brown border */
-  object-fit: cover;
-  display: inline-block;
-  user-drag: none;
-  user-select: none;
-}
-
-#loveButton {
-  display: block;
-  margin: 40px auto;
-  font-family: 'Playfair Display', serif; /* Elegant font */
-  text-transform: uppercase;
-  background-color: #D2B48C; /* Cookies - tan/beige */
-  color: #6F4E37; /* Caramel - brown */
-  border: 2px solid #6F4E37;
-  padding: 15px 30px;
-  font-size: 1.5rem;
-  letter-spacing: 2px;
-  cursor: pointer;
-  border-radius: 10px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#loveButton:hover {
-  background-color: #6F4E37; /* Caramel brown */
-  color: #D2B48C; /* Cookies beige */
-}
-.gallery-container {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  cursor: grab;
-  padding: 10px;
-}
-
+/* Gallery images styling */
 .gallery-container img {
   flex: 0 0 auto;
-  width: 200px;
-  margin-right: 10px;
-  border-radius: 8px;
-  transition: transform 0.3s;
+  width: 220px;
+  height: auto;
+  margin-right: 15px;
+  border-radius: 15px;
+  border: 2px solid var(--color-caramel-dark);
+  box-shadow: 2px 2px 6px rgba(123, 78, 26, 0.4);
+  transition: transform 0.3s ease;
+  background: var(--color-beige);
+  padding: 5px;
 }
 
 .gallery-container img:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
+  box-shadow: 4px 4px 12px rgba(123, 78, 26, 0.7);
   cursor: pointer;
+}
+
+/* Custom styled button */
+.custom-button {
+  font-family: 'Sacramento', cursive;
+  text-transform: uppercase;
+  background-color: var(--color-beige);
+  color: var(--color-caramel-dark);
+  border: 2px solid var(--color-caramel-dark);
+  border-radius: 35px;
+  padding: 12px 32px;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: block;
+  margin: 40px auto 20px auto;
+  box-shadow: 0 4px 15px rgba(123, 78, 26, 0.4);
+}
+
+.custom-button:hover {
+  background-color: var(--color-caramel-dark);
+  color: var(--color-beige);
+  box-shadow: 0 6px 20px rgba(123, 78, 26, 0.7);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-caramel-light);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .gallery-container img {
+    width: 140px;
+    margin-right: 10px;
+  }
 }
