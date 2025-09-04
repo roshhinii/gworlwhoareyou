@@ -22,7 +22,7 @@ gallery.addEventListener('mouseup', () => {
 });
 
 gallery.addEventListener('mousemove', (e) => {
-  if(!isDown) return;
+  if (!isDown) return;
   e.preventDefault();
   const x = e.pageX - gallery.offsetLeft;
   const walk = (x - startX) * 2; // scroll speed multiplier
@@ -30,6 +30,9 @@ gallery.addEventListener('mousemove', (e) => {
 });
 
 // Button click redirects to the next page
-document.getElementById('loveButton').addEventListener('click', () => {
-  window.location.href = 'next.html';
-});
+const loveButton = document.getElementById('loveButton');
+if (loveButton) {
+  loveButton.addEventListener('click', () => {
+    window.location.href = 'next.html';
+  });
+}
