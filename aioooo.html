@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A Letter for You</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Inline CSS specific to next page letter and audio */
+    .letter-container {
+      max-width: 700px;
+      margin: 60px auto;
+      padding: 30px 40px;
+      background-color: var(--color-caramel-light);
+      border-radius: 25px;
+      box-shadow: 0 6px 18px rgba(123, 78, 26, 0.4);
+      color: var(--color-beige);
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .letter-container p {
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      color: var(--color-caramel-dark);
+      text-align: center;
+      margin-top: 40px;
+      font-family: 'Sacramento', cursive;
+      font-size: 52px;
+      letter-spacing: 5px;
+    }
+
+    audio {
+      display: block;
+      margin: 40px auto 60px;
+      outline: none;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(123, 78, 26, 0.5);
+      width: 300px;
+      max-width: 90vw;
+    }
+  </style>
+</head>
+<body>
+  <h1>A Letter For You</h1>
+  <div class="letter-container">
+    <p>Hi Deivanai K,</p>
+    <p>Every moment with you feels like a beautiful adventure I never want to end. Your smile brightens my darkest days and your laughter is the sweetest melody.</p>
+    <p>This letter is just a small way to tell you how much you mean to me and how lucky I am to have you by my side.</p>
+    <p>Thank you for your endless patience, understanding, and the love you so generously share.</p>
+    <p>Always yours,</p>
+    <p><em>Roro</em></p>
+  </div>
+
+  <audio controls autoplay>
+    <source src="PaperRings-TaylorSwift.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+</body>
+</html>
