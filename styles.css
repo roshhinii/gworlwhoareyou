@@ -65,3 +65,23 @@ h1 {
   background-color: #6F4E37; /* Caramel brown */
   color: #D2B48C; /* Cookies beige */
 }
+.gallery-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  cursor: grab;
+  padding: 10px;
+}
+
+.gallery-container img {
+  flex: 0 0 auto;
+  width: 200px;
+  margin-right: 10px;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.gallery-container img:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
