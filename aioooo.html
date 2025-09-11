@@ -3,62 +3,200 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>A Letter for You</title>
+  <title>A Letter For You</title>
   <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins&display=swap" rel="stylesheet" />
   <style>
-    /* Inline CSS specific to next page letter and audio */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--color-beige);
+      color: var(--color-text-brown);
+      margin: 0;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Sacramento', cursive;
+      font-size: 56px;
+      text-align: center;
+      color: var(--color-caramel-dark);
+      letter-spacing: 5px;
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
+
     .letter-container {
       max-width: 700px;
-      margin: 60px auto;
+      margin: 0 auto 60px auto;
       padding: 30px 40px;
       background-color: var(--color-caramel-light);
       border-radius: 25px;
       box-shadow: 0 6px 18px rgba(123, 78, 26, 0.4);
       color: var(--color-beige);
-      font-family: 'Poppins', sans-serif;
       font-size: 20px;
       line-height: 1.7;
       text-align: center;
+      min-height: 300px;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      opacity: 0;
+      animation: fadeIn 3s forwards;
     }
 
-    .letter-container p {
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      color: var(--color-caramel-dark);
-      text-align: center;
-      margin-top: 40px;
-      font-family: 'Sacramento', cursive;
-      font-size: 52px;
-      letter-spacing: 5px;
+    /* Typing animation on letter contents */
+    .typed-text {
+      display: inline-block;
+      border-right: 2px solid var(--color-beige);
+      padding-right: 5px;
+      white-space: pre-wrap;
+      overflow: hidden;
     }
 
     audio {
       display: block;
-      margin: 40px auto 60px;
+      margin: 30px auto 60px auto;
       outline: none;
       border-radius: 14px;
       box-shadow: 0 8px 30px rgba(123, 78, 26, 0.5);
-      width: 300px;
+      width: 320px;
       max-width: 90vw;
+    }
+
+    /* Floating hearts container */
+    .floating-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 0;
+    }
+
+    .floating-icon {
+      position: absolute;
+      width: 25px;
+      height: auto;
+      opacity: 0.9;
+      animation-name: floatUp;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0.9;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(20px) rotate(15deg);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 40px;
+      }
+      .letter-container {
+        font-size: 16px;
+        padding: 20px;
+        max-width: 90vw;
+      }
+      audio {
+        width: 250px;
+      }
     }
   </style>
 </head>
 <body>
   <h1>A Letter For You</h1>
-  <div class="letter-container">
-    <p>Hi Deivanai K,</p>
-    <p>Every moment with you feels like a beautiful adventure I never want to end. Your smile brightens my darkest days and your laughter is the sweetest melody.</p>
-    <p>This letter is just a small way to tell you how much you mean to me and how lucky I am to have you by my side.</p>
-    <p>Thank you for your endless patience, understanding, and the love you so generously share.</p>
-    <p>Always yours,</p>
-    <p><em>Roro</em></p>
+  <div class="letter-container" aria-live="polite" aria-atomic="true" role="region">
+    <span id="typed-text" class="typed-text"></span>
   </div>
 
-  <audio controls autoplay>
+  <audio controls autoplay aria-label="Paper Rings by Taylor Swift song player">
     <source src="PaperRings-TaylorSwift.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
+
+  <div class="floating-container" aria-hidden="true"></div>
+
+  <script>
+    // Floating hearts animation
+    const floatingContainer = document.querySelector('.floating-container');
+
+    const heartImages = [
+      'heart1.png',
+      'heart2.png',
+      'heart3.png',
+      'heart4.png',
+      'heart5.png',
+      'heart6.png'
+    ];
+
+    function randomNumber(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createFloatingHeart() {
+      const img = document.createElement('img');
+      img.src = heartImages[Math.floor(Math.random() * heartImages.length)];
+      img.classList.add('floating-icon');
+      img.style.left = randomNumber(0, window.innerWidth) + 'px';
+      img.style.animationDuration = randomNumber(7, 14) + 's';
+      img.style.animationDelay = randomNumber(0, 5) + 's';
+      floatingContainer.appendChild(img);
+
+      img.addEventListener('animationend', () => {
+        img.remove();
+      });
+    }
+
+    setInterval(createFloatingHeart, 400);
+
+    // Typing animation for letter content
+    const text = `Hi Deivanai K,
+
+For the starter’s pack, I’m grateful for you putting up with me through the years, and consider this a loving request to continue it! Stating the fact that I'm good with numbers, especially dates (not the guy dates, haha, not funny), October 16, 2021, is so special to me—and you know why. I started liking the BJP hater for the good! Hmm, likewise May 2021, September 12, 2021, December 14, 2021, December 25, 2021. I’d relive them if I had the powers to. High school chakkar sirf aap hi madam. High school se university tak, aapka chakkar. I’m still figuring out what spell you have bound over me; I'm mad for you like this, now Keerthy also.
+
+Okay, keynoting one matter—I have never despised you being with your boyfriend, though it has always looked like it. Apologies for that. It was neither you nor him; I was the problem. I had no issues with you two, like my ideal couple. Why'd I even spread hate towards it? I was just sad that you stopped talking to me properly. Sachh mein. The only thing that spun my head 360 degrees was the fact that we will become occasional friends. And ffs, I’m not bi or gay—I’m gay for ya, okay? See, you were a bitch to me. During the sympo, I thought I would be of help to you, you would share all the pictures, regardless of how bad those pictures were, and I would stay and be a hand this and that, blah blah. But yeah, I should have read the situation better, instead of complaining you didn’t do this and that. Sorry for that. I’m a lunatic, simply thinking, not for the good. Likewise, your boyfriend—man, sorry for nagging you. I didn’t imply to do whatever’s been shown. What would I do without you? Yes, I have gone out with others and said, “It would have been so great if you were there”… such a toxic men dialogue, but that simply means I just wanted it to be with you and my circle. I’m not good at explaining stuff, but you get it, right? I’d never judge you for anything. For anything, I repeat. And I have never judged you, I swear. God forbid a woman is possessive about her bestie. But I’m sorry it crossed its limit. I’m proud of you every day for who you are, and I will never find you in anyone else.
+
+Yo, my home, ahhhhhh, enough love bombing—I’m shy, but it is so real. And yes, everything will be so f*cking great if you are in it with me. I want to say so many other things, but you will laugh.
+
+I want us all to live together in Bangalore or Hyderabad, idc— you, me, Deiv, and Keerthy too. I don’t find it uncomfy for you both f*ckin' in front of me, not a bit. I’m just jealous of that nig. Chi. Ayo. But yeah, he loves you sooo much, and there’s never been a call without talking about you in it. You are the foundation of this stupid funny friendship. Ew. I wanna puke. I’ll earn and spend more on your wedding than you will. You are the celebration in my life (in a very serious and emo emo tone, and def not laughing).
+
+Everyone knows I love you so much, and you also better know it. Yes. I love your mom more, tbh. I love your family ToT. If at all I have a wedding, the food will be Chettinaad dishes, and your family will get the most warmest, brightest, richest hospitality. Man, I love you so much, and I don’t know what I’ll do without you. I have cried for you and have been the happiest because of you. Chi, what did you do, d!
+
+Okay, I'm not gon' be this mad for anyone and I don't want to be. I'll never get enough of you. And please bear my ass (it will grow soon), A LOVING REQUEST.
+
+I got lucky in life.
+Love Ya So Much. <3
+`;
+
+    const typedTextElement = document.getElementById('typed-text');
+    let index = 0;
+
+    function typeWriter() {
+      if (index < text.length) {
+        typedTextElement.textContent += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 30);
+      }
+    }
+    typeWriter();
+  </script>
 </body>
 </html>
