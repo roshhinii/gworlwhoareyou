@@ -34,6 +34,6 @@ if (gallery) {
 const loveButton = document.getElementById('loveButton');
 if (loveButton) {
   loveButton.addEventListener('click', () => {
-    window.location.href = 'next.html';
+    window.location.href = 'aioooo.html';
   });
 }

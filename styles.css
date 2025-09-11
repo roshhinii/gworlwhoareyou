@@ -9,6 +9,30 @@
   --color-text-brown: #5d4530; /* brown text */
 }
 
+.letter-link {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: var(--color-caramel-light);
+  color: var(--color-beige);
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 18px;
+  margin: 20px 0;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 12px rgba(123, 78, 26, 0.2);
+}
+
+.letter-link:hover {
+  background-color: var(--color-caramel-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(123, 78, 26, 0.3);
+}
+
+nav {
+  text-align: center;
+  margin: 20px 0;
+}
+
 /* General body and typography */
 body {
   font-family: 'Poppins', sans-serif;

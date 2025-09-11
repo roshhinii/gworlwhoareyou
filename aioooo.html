@@ -7,6 +7,40 @@
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins&display=swap" rel="stylesheet" />
   <style>
+    .back-link {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+      color: var(--color-caramel-dark);
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+    .back-link:hover {
+      color: var(--color-text-brown);
+    }
+
+    #readButton {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 24px;
+      background-color: var(--color-caramel-light);
+      color: var(--color-beige);
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(123, 78, 26, 0.2);
+    }
+
+    #readButton:hover {
+      background-color: var(--color-caramel-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(123, 78, 26, 0.3);
+    }
+  </style>
+  <style>
     body {
       font-family: 'Poppins', sans-serif;
       background-color: var(--color-beige);
@@ -78,12 +112,13 @@
 
     .floating-icon {
       position: absolute;
-      width: 25px;
-      height: auto;
-      opacity: 0.9;
+      width: 35px;
+      height: 35px;
+      opacity: 0.8;
       animation-name: floatUp;
       animation-timing-function: ease-in-out;
       animation-iteration-count: infinite;
+      filter: drop-shadow(0 3px 5px rgba(123, 78, 26, 0.2));
     }
 
     @keyframes fadeIn {
@@ -122,13 +157,15 @@
   </style>
 </head>
 <body>
+  <a href="index.html" class="back-link">← Back to Gallery</a>
   <h1>A Letter For You</h1>
+  <button id="readButton" class="custom-button">Read Letter Aloud</button>
   <div class="letter-container" aria-live="polite" aria-atomic="true" role="region">
     <span id="typed-text" class="typed-text"></span>
   </div>
 
   <audio controls autoplay aria-label="Paper Rings by Taylor Swift song player">
-    <source src="PaperRings-TaylorSwift.mp3" type="audio/mpeg" />
+    <source src="Taylor_Swift_-_Paper_Rings_Acapella.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
 
@@ -138,13 +175,9 @@
     // Floating hearts animation
     const floatingContainer = document.querySelector('.floating-container');
 
+    // Using a data URL for the heart image instead of files
     const heartImages = [
-      'heart1.png',
-      'heart2.png',
-      'heart3.png',
-      'heart4.png',
-      'heart5.png',
-      'heart6.png'
+      'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBmaWxsPSIjYmY5NjUyIj48cGF0aCBkPSJNNDcuNiAxNTAuNEM4My4yIDg5LjEgMTUyIDE5LjMgMjM1LjggMTkuM2M3MS40IDAgMTM4LjggNjcuMSAxNzMuNCAxMjguNCA0MC4zIDcxLjIgNDAuMyAxNDguNSAwIDIxOS43TDI1NiA0OTIuN0wxMDIuOSAzNjcuNEM2Mi42IDI5Ni4yIDYyLjYgMjE4LjkgNDcuNiAxNTAuNHoiLz48L3N2Zz4='
     ];
 
     function randomNumber(min, max) {
@@ -197,6 +230,31 @@ Love Ya So Much. <3
       }
     }
     typeWriter();
+
+    // Text-to-speech functionality
+    document.getElementById('readButton').addEventListener('click', function() {
+      // Get the letter text
+      const text = document.querySelector('.letter-container').textContent;
+      
+      // Create speech synthesis utterance
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.0;  // Normal speed
+      utterance.pitch = 1.0; // Normal pitch
+      
+      // Get the audio element
+      const audio = document.querySelector('audio');
+      
+      // Pause the music while reading
+      audio.pause();
+      
+      // Speak the text
+      window.speechSynthesis.speak(utterance);
+      
+      // When speech ends, resume the music
+      utterance.onend = function() {
+        audio.play();
+      };
+    });
   </script>
 </body>
 </html>
