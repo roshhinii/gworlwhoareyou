@@ -36,3 +36,5 @@ if (loveButton) {
     window.location.href = 'next.html';
   });
 }
+
+
