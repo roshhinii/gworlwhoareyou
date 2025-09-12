@@ -63,6 +63,7 @@ h1, h2, h3 {
   max-width: 90vw;
   box-shadow: 0 4px 14px rgba(123, 78, 26, 0.3);
   user-select: none;
+  position: relative;
 }
 
 .gallery-container:active {
@@ -81,15 +82,16 @@ h1, h2, h3 {
   background: var(--color-beige);
   padding: 3px;
   opacity: 0;
-  transform: translateX(50px);
-  transition: all 0.4s ease-out;
-  pointer-events: none;
+  transform: translateX(100px);
+  transition: none;
+  visibility: hidden;
 }
 
 .gallery-container img.visible {
   opacity: 1;
   transform: translateX(0);
-  pointer-events: auto;
+  visibility: visible;
+  transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .gallery-container img:hover {
