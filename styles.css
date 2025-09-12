@@ -72,19 +72,26 @@ h1, h2, h3 {
 /* Gallery images styling */
 .gallery-container img {
   flex: 0 0 auto;
-  width: 220px;
+  width: 160px;
   height: auto;
-  margin-right: 15px;
-  border-radius: 15px;
+  margin-right: 10px;
+  border-radius: 10px;
   border: 2px solid var(--color-caramel-dark);
   box-shadow: 2px 2px 6px rgba(123, 78, 26, 0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   background: var(--color-beige);
-  padding: 5px;
+  padding: 3px;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
+}
+
+.gallery-container img.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .gallery-container img:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
   box-shadow: 4px 4px 12px rgba(123, 78, 26, 0.7);
   cursor: pointer;
 }
@@ -123,8 +130,10 @@ button:focus {
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .gallery-container img {
-    width: 140px;
-    margin-right: 10px;
+    width: 120px;  /* Reduced from 140px */
+    margin-right: 8px;
+    padding: 3px;
+    border-radius: 10px;
   }
   h1, h2, h3 {
     font-size: 1.5em;
