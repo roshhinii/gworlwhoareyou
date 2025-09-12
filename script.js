@@ -8,50 +8,72 @@ document.addEventListener('DOMContentLoaded', () => {
     const images = gallery.getElementsByTagName('img');
 
     // Hide all images initially
-    Array.from(images).forEach(img => {
-      img.classList.remove('visible');
-    });
-
-    function isElementInViewport(el, container) {
-      const rect = el.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
-      const buffer = containerRect.width * 0.2; // 20% of container width as buffer
-
-      return (
-        rect.left <= containerRect.right + buffer &&
-        rect.right >= containerRect.left - buffer
-      );
+    function hideAllImages() {
+      Array.from(images).forEach(img => {
+        img.classList.remove('visible');
+      });
     }
 
-    function checkVisibleImages() {
-      Array.from(images).forEach((img, index) => {
-        if (isElementInViewport(img, gallery)) {
-          setTimeout(() => {
-            img.classList.add('visible');
-          }, index * 100); // Staggered delay based on image position
+    hideAllImages();
+
+    function showImagesInView() {
+      const galleryRect = gallery.getBoundingClientRect();
+      Array.from(images).forEach(img => {
+        const imgRect = img.getBoundingClientRect();
+        if (imgRect.left < galleryRect.right && imgRect.right > galleryRect.left) {
+          img.classList.add('visible');
+        } else {
+          img.classList.remove('visible');
         }
       });
     }
 
-    // Initial visibility check after a short delay
-    setTimeout(checkVisibleImages, 300);
+    // Touch Events
+    gallery.addEventListener('touchstart', (e) => {
+      isDown = true;
+      gallery.classList.add('dragging');
+      startX = e.touches[0].pageX - gallery.offsetLeft;
+      scrollLeft = gallery.scrollLeft;
+    });
 
-    // Mouse/Touch drag handling
+    gallery.addEventListener('touchend', () => {
+      isDown = false;
+      gallery.classList.remove('dragging');
+      hideAllImages();
+    });
+
+    gallery.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.touches[0].pageX - gallery.offsetLeft;
+      const walk = (x - startX) * 2;
+      gallery.scrollLeft = scrollLeft - walk;
+      showImagesInView();
+    });
+
+    // Mouse Events
     gallery.addEventListener('mousedown', (e) => {
       isDown = true;
+      gallery.classList.add('dragging');
       gallery.style.cursor = 'grabbing';
       startX = e.pageX - gallery.offsetLeft;
       scrollLeft = gallery.scrollLeft;
     });
 
     gallery.addEventListener('mouseleave', () => {
-      isDown = false;
-      gallery.style.cursor = 'grab';
+      if (isDown) {
+        isDown = false;
+        gallery.classList.remove('dragging');
+        gallery.style.cursor = 'grab';
+        hideAllImages();
+      }
     });
 
     gallery.addEventListener('mouseup', () => {
       isDown = false;
+      gallery.classList.remove('dragging');
       gallery.style.cursor = 'grab';
+      hideAllImages();
     });
 
     gallery.addEventListener('mousemove', (e) => {
@@ -60,22 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const x = e.pageX - gallery.offsetLeft;
       const walk = (x - startX) * 2;
       gallery.scrollLeft = scrollLeft - walk;
-      requestAnimationFrame(checkVisibleImages);
+      showImagesInView();
     });
-
-    // Smooth scroll handling
-    let scrollTimer = null;
-    gallery.addEventListener('scroll', () => {
-      if (scrollTimer !== null) {
-        clearTimeout(scrollTimer);
-      }
-      scrollTimer = setTimeout(() => {
-        checkVisibleImages();
-      }, 50);
-    }, { passive: true });
-
-    // Handle window resize
-    window.addEventListener('resize', checkVisibleImages, { passive: true });
   }
 });
 
