@@ -14,16 +14,28 @@ if (gallery) {
   // Function to check which images are in view
   function checkVisibleImages() {
     const galleryRect = gallery.getBoundingClientRect();
+    const buffer = 50; // Show images slightly before they enter the view
+    
     Array.from(images).forEach(img => {
       const imgRect = img.getBoundingClientRect();
-      if (imgRect.left < galleryRect.right && imgRect.right > galleryRect.left) {
-        img.classList.add('visible');
+      const isVisible = imgRect.left < (galleryRect.right + buffer) && 
+                       imgRect.right > (galleryRect.left - buffer);
+      
+      if (isVisible) {
+        if (!img.classList.contains('visible')) {
+          // Add a small random delay for a staggered effect
+          setTimeout(() => {
+            img.classList.add('visible');
+          }, Math.random() * 100);
+        }
+      } else {
+        img.classList.remove('visible');
       }
     });
   }
 
   // Initial check for visible images
-  setTimeout(checkVisibleImages, 100);
+  setTimeout(checkVisibleImages, 200);
 
   gallery.addEventListener('mousedown', (e) => {
     isDown = true;
